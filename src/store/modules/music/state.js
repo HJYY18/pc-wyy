@@ -1,0 +1,26 @@
+export default {
+    //当前播放的音乐信息
+    musicInfo:{
+        musicId:'',
+        musicURL:'',
+        musicPic:'',
+        isLiked:false,
+        artistsList:'',
+        musicName:'',
+        musicAlia:'',
+        musicTransName:'',
+        alId:'',
+        alName:''
+    },
+    //正在播放列表
+    playList:[],
+    //历史播放列表
+    historyList:[],
+    isPlaying:false,
+    isShowMusicDetail:false,
+    playType:1,
+    currentSecond:0,
+    currentRow:'',
+    duration:0,
+    temp:'200'
+}
