@@ -70,6 +70,7 @@ export default {
       if(this.hasMore){
         this.offset += 15
         let res = await artistAlbum(this.$route.query.id,this.offset)
+        console.log(res)
         this.hasMore = res.data.more
         this.hotAlbums.push.apply(this.hotAlbums,res.data.hotAlbums)
       }

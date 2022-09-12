@@ -4,7 +4,7 @@
         :url="url"
         :info="info"
         :likedCount="likedCount"
-        :type="2"
+        :type="5"
       ></shipinDetail>
   </div>
 </template>
@@ -27,7 +27,7 @@ data() {
     async getData() {
       console.log(233);
       let res = await videoURL(this.$route.query.id);
-      // console.log(res);
+      console.log(res);
       this.url = res.data.urls[0].url;
       let res2 = await videoDetail(this.$route.query.id);
       this.info['id'] = res2.data.data.vid
@@ -36,7 +36,7 @@ data() {
       this.info['title'] = res2.data.data.title
       this.info['publishTime'] = this.changeData(res2.data.data.publishTime)
       this.info['playCount'] = res2.data.data.playTime
-      this.info['subCount'] = res2.data.data.subCount
+      this.info['subCount'] = res2.data.data.subscribeCount
       console.log(res2);
       // this.info = res2.data.data;
       //   console.log(res2)

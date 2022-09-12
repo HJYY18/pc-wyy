@@ -21,12 +21,14 @@ export const artistTop = (id)=>{
 // 必选参数 : id: 歌手 id, 可由搜索接口获得
 // 接口地址 : /artist/mv
 // 调用例子 : /artist/mv?id=6452
-export const artistMv = (id)=>{
+export const artistMv = (id,limit,offset)=>{
     return axiosServer({
         method:'get',
         url:'/artist/mv',
         params:{
-            id
+            id,
+            limit,
+            offset
         }
     })
 }
@@ -78,6 +80,23 @@ export const artistDetail = (id)=>{
         url:'/artist/detail',
         params:{
             id
+        }
+    })
+}
+
+// 收藏/取消收藏歌手
+// 说明 : 调用此接口,可收藏歌手
+// 必选参数 :
+// id : 歌手 id
+// t:操作,1 为收藏,其他为取消收藏
+// 接口地址 : /artist/sub
+// 调用例子 : /artist/sub?id=6452&t=1
+export const artistSub = (id,t)=>{
+    return axiosServer({
+        method:'get',
+        url:'/artist/sub',
+        params:{
+            id,t
         }
     })
 }

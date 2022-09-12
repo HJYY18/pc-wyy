@@ -58,7 +58,7 @@ export const newComment = (id, type) => {
 // id:对应资源 id   content :要发送的内容   commentId :回复的评论 id (回复评论时必填)
 // 调用例子 : /comment?t=1&type=1&id=5436712&content=test (往广岛之恋 mv 发送评论: test)
 // 注意：如给动态发送评论，则不需要传 id，需要传动态的 threadId,如：/comment?t=1&type=6&threadId=A_EV_2_6559519868_32953014&content=test
-export const replyComment = (t, type, id, content) => {
+export const replyComment = (t, type, id, content,commentId) => {
     return axiosServer({
         methodL: 'get',
         url: '/comment',
@@ -66,7 +66,8 @@ export const replyComment = (t, type, id, content) => {
             t, 
             type, 
             id, 
-            content
+            content,
+            commentId
         }
     })
 }
@@ -182,6 +183,27 @@ export const albumComment = (id,offset) => {
         url: '/comment/album',
         params: {
             id,offset
+        }
+    })
+}
+
+// 资源点赞( MV,电台,视频)
+// 说明 : 调用此接口 , 可对 MV,电台,视频点赞
+// 必选参数 :
+// type:资源类型,对应以下类型
+// 0: 歌曲  1: mv  2: 歌单  3: 专辑  4: 电台节目  5: 视频  6: 动态  7: 电台
+// t: 操作,1 为点赞,其他为取消点赞
+// id: 资源 id
+// 接口地址 : /resource/like
+// 调用例子 : /resource/like?t=1&type=1&id=5436712
+// 注意：如给动态点赞，不需要传入 id，需要传入 threadId,可通过 event,/user/event 接口获取，
+// 如： /resource/like?t=1&type=6&threadId=A_EV_2_6559519868_32953014
+export const likeResource = (t,type,id) =>{
+    return axiosServer({
+        method:'get',
+        url:'/resource/like',
+        params:{
+            t,type,id
         }
     })
 }

@@ -34,7 +34,7 @@
       <songsList ref="song" v-if="this.idList != ''" :songs="songs"></songsList>
     </div>
     <div class="comment" v-else>
-      <comment :id="playListId" :type="4"></comment>
+      <comment :id="playListId" :type="3"></comment>
     </div>
   </div>
 </template>

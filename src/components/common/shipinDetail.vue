@@ -1,7 +1,7 @@
 <template>
   <div id="box">
     <div class="type">
-      {{ type == 2 ? "视频详情" : "MV详情" }}
+      {{ type == 5 ? "视频详情" : "MV详情" }}
     </div>
     <div class="show">
       <div class="video">
@@ -18,8 +18,10 @@
           <span>播放：{{ info.playCount }}次</span>
         </div>
         <div>
-          <button>点赞({{ likedCount }})</button>
+          <button v-if="!liked" @click="like">点赞({{ likedCount }})</button>
+          <button v-else @click="like">点赞({{ likedCount }})</button>
           <button>收藏({{ info.subCount }})</button>
+          <!-- <button v-else>已收藏({{ info.subCount }})</button> -->
         </div>
       </div>
       <div class="comment">
@@ -30,10 +32,26 @@
 </template>
 
 <script>
+import { likeResource } from "@/http/api/comment";
 import comment from "./comment/comment.vue";
 export default {
-  props: ["url", "type", "info", "likedCount"],
+  props: ["url", "type", "info", "likedCount", "liked"],
   components: { comment },
+  methods: {
+    async like() {
+      let res = await likeResource(
+        this.liked ? 2 : 1,
+        this.type,
+        this.$route.query.id
+      );
+      console.log(res);
+      if (this.liked) {
+        this.$emit("Ladd");
+      } else {
+        this.$emit("Ldel");
+      }
+    },
+  },
 };
 </script>
 
@@ -45,7 +63,7 @@ export default {
   align-items: center;
   // justify-content: center;
   // border: 1px solid black;
-  .type{
+  .type {
     align-self: flex-start;
     font-size: 1.5rem;
     font-weight: 500;
@@ -63,6 +81,16 @@ export default {
   .info {
     display: flex;
     flex-direction: column;
+    button {
+      background-color: white;
+      padding: 0.5% 2%;
+      margin: 1% 1% 1% 0;
+      border-radius: 100vh;
+      border: 0.1px solid rgb(209, 204, 204);
+      &:hover {
+        background-color: rgb(242, 242, 242);
+      }
+    }
     .avatar {
       display: flex;
       width: 100%;

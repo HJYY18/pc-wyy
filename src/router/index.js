@@ -31,9 +31,9 @@ const router = new VueRouter({
                 },
                 {
                     path: 'latestMusic',
-                    redirect:'latestMusic/Song',
+                    redirect: 'latestMusic/Song',
                     component: () => import('../views/discoverMusci/DlatestMusic/index'),
-                    children:[
+                    children: [
                         {
                             path: 'Song',
                             component: () => import('../views/discoverMusci/DlatestMusic/latestSong')
@@ -50,18 +50,18 @@ const router = new VueRouter({
         },
         {
             path: '/dailysongs',
-            component:() => import('../views/discoverMusci/Drecommendation/recmmendList/dailySongs')
+            component: () => import('../views/discoverMusci/Drecommendation/recmmendList/dailySongs')
         },
         {
             path: '/personalList',
-            component:() => import('../views/discoverMusci/Drecommendation/personal/personalList')
+            component: () => import('../views/discoverMusci/Drecommendation/personal/personalList')
         },
         {
             path: "/video",
             name: 'shipin',
-            redirect:'/video/video',
+            redirect: '/video/video',
             component: () => import('../views/video/index'),
-            children:[
+            children: [
                 {
                     path: "mv",
                     component: () => import('../views/video/mv/mv'),
@@ -120,9 +120,9 @@ const router = new VueRouter({
         {
             path: "/artist",
             name: 'geshou',
-            redirect:'/artist/album',
+            redirect: '/artist/album',
             component: () => import('@/components/common/artist/artist'),
-            children:[
+            children: [
                 {
                     path: "album",
                     component: () => import('../components/common/artist/router/album')
@@ -142,10 +142,23 @@ const router = new VueRouter({
             name: 'yonghu',
             component: () => import('@/components/common/user/user')
         },
-        // {
-        //     path: "collect",
-        //     component: () => import('../components/common/artist/router/detail')
-        // },
+        {
+            path: "/collect",
+            name: 'shoucang',
+            component: () => import('../components/collect/index'),
+            children: [
+                {
+                    path: "album",
+                    component: () => import('@/components/collect/Calbum')
+                }, {
+                    path: "artist",
+                    component: () => import('@/components/collect/Cartist')
+                }, {
+                    path: "video",
+                    component: () => import('@/components/collect/Cvideo')
+                },
+            ]
+        },
         {
             path: "/search",
             name: 'sousuo',

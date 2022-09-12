@@ -33,7 +33,7 @@
           <div class="zanBox">
             <!-- 评论 -->
             <div class="reply">
-              <img src="@/assets/imgs/reply.png" alt="" />
+              <img @click="reply" src="@/assets/imgs/reply.png" alt="" />
             </div>
             <!-- 赞数量 -->
             <div class="count">{{ item.likedCount }}</div>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { likeComment } from "@/http/api/comment";
+import { likeComment, } from "@/http/api/comment";
 export default {
   props: ["item", "type", "id"],
   data() {
@@ -96,6 +96,16 @@ export default {
           // this.$message.error("点赞失败,请稍后重试!")
         });
     },
+    reply(){
+      let data = {}
+      data['type'] = this.type
+      data['id'] = this.id
+      data['cid'] = this.item.commentId
+      // replyComment(2, this.type, this.id, content,this.item.commentId).then((res)=>{
+      //   console.log(res)
+      // })
+      this.$emit('reply',data );
+    },
     toUser(id) {
       this.$router.push({ path: "/user", query: { id } });
     },
@@ -108,6 +118,7 @@ export default {
     // border: 1px solid black;
     border-bottom: 0.1px solid rgb(240, 233, 233);
     width: 100%;
+    // height: vh;
     display: flex;
     padding: 3% 0;
     // align-items: center;

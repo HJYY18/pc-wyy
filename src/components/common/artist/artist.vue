@@ -7,14 +7,16 @@
         <img v-else :src="info.artist.cover" alt="">
       </div>
       <div class="info">
-        <div>{{info.artist.name}}</div>
+        <div class="name">{{info.artist.name}}</div>
         <div>
-          <button>收藏</button>
-          <button>个人主页</button>
+          <button @click="sub" v-if="followed">已收藏</button>
+          <button @click="sub" v-else>收藏</button>
+          <button @click="toUser">个人主页</button>
         </div>
-        <div>
+        <div class="count">
           <span>单曲数:{{info.artist.musicSize}}</span>
           <span>专辑数:{{info.artist.albumSize}}</span>
+          <span>mv数:{{info.artist.mvSize}}</span>
         </div>
       </div>
     </div>
@@ -33,9 +35,10 @@
 import {
   // artistTop,
   // artistMv,
-  // artistAlbum,
+  artistAlbum,
   // artistDesc,
   artistDetail,
+  artistSub
 } from "@/http/api/artist";
 export default {
   data() {
@@ -45,42 +48,21 @@ export default {
       albums:'',
       desc:'',
       info:'',
-      loading:false
+      loading:false,
+      followed:'',
+      userId:''
     };
   },
   methods: {
     async getData() {
-      // //top50
-      // let res = await artistTop(this.$route.query.id);
-      // console.log("top50");
-      // console.log(res);
-
-      // //mv
-      // let res2 = await artistMv(this.$route.query.id);
-      // console.log("mv");
-      // console.log(res2);
-
-      // //请求太快得不到数据
-      // setTimeout(() => {}, 100);
-
-      // //专辑
-      // let res3 = await artistAlbum(this.$route.query.id);
-      // console.log("album");
-      // console.log(res3);
-
-      // //歌手描述
-      // let res4 = await artistDesc(this.$route.query.id);
-      // console.log("desc");
-      // console.log(res4);
-      
-      // //请求太快得不到数据
-      // setTimeout(() => {}, 100);
-
       //歌手信息
       let res = await artistDetail(this.$route.query.id);
       this.info = res.data.data
+      this.userId = res.data.data.user.userId
       // console.log("detail");
       console.log(res);
+      let res2 = await artistAlbum(this.$route.query.id,0);
+      this.followed = res2.data.artist.followed
     },
     //加载更多
     scroll(e){
@@ -90,12 +72,18 @@ export default {
         !this.loading
       ) {
         this.$refs['main'].more()
-        // this.more();
-        // console.log(this.list)
-        // console.log("scrollHeight:" + e.srcElement.scrollHeight);
-        // console.log("scrollTop:" + e.srcElement.scrollTop);
-        // console.log("clientHeight:" + e.srcElement.clientHeight);
       }
+    },
+    async sub(){
+       let res = await artistSub(this.$route.query.id,this.followed?2:1)
+       if(res.data.code == 200){
+        this.followed = !this.followed
+       }else{
+        alert('操作失败')
+       }
+    },
+    toUser(){
+      this.$router.push({path:'/user',query:{id:this.userId}})
     }
   },
   created() {
@@ -123,7 +111,28 @@ export default {
       }
     }
     .info{
+      width: 100%;
       margin-left: 2%;
+      .name{
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      .count{
+        &>*{
+          margin-right: 2%;
+          font-size: 1px;
+        }
+      }
+      button{
+        background-color: white;
+        padding: 0.5% 2%;
+        margin: 1% 1% 1% 0;
+        border-radius: 100vh;
+        border: 0.1px solid rgb(209, 204, 204);
+        &:hover{
+          background-color: rgb(242,242,242);
+        }
+      }
     }
   }
 

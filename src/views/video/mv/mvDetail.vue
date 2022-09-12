@@ -8,6 +8,9 @@
         :info="info"
         :likedCount="likedCount"
         :type="1"
+        :liked="liked"
+        @Ladd="Ladd"
+        @Ldel="Ldel"
       ></shipinDetail>
     </div>
   </div>
@@ -31,6 +34,7 @@ export default {
     async getData() {
       // console.log(233);
       let res = await mvURL(this.$route.query.id);
+      // console.log(res)
       this.url = res.data.data.url;
       let res2 = await mvDetail(this.$route.query.id);
       this.info['id'] = res2.data.data.id
@@ -52,6 +56,14 @@ export default {
       //   console.log(res)
       //   console.log(this.$route.query.id)
     },
+    Ladd(){
+      this.likedCount += 1
+      this.liked = true
+    },
+    Ldel(){
+      this.likedCount -= 1
+      this.liked = false
+    }
   },
   created() {
       // console.log(233);

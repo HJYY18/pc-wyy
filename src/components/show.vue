@@ -5,16 +5,17 @@
         >发现音乐</router-link
       >
       <router-link to="/video" class="menu-top">视频</router-link>
-      <router-link to="/friends" class="menu-top">朋友</router-link>
+      <router-link to="/collect" class="menu-top">收藏</router-link>
+      <!-- <router-link to="/friends" class="menu-top">朋友</router-link> -->
       <!-- <div class="myMusic">
         <span>我的音乐</span>
         <router-link to="/localMusic">本地音乐</router-link>
         <router-link to="/download">下载管理</router-link>
         <router-link to="/colle">收藏</router-link>
       </div> -->
-      <div class="test">
+      <!-- <div class="test">
         <router-link to="/test">测试</router-link>
-      </div>
+      </div> -->
       <!-- 用户歌单 -->
       <asideList></asideList>
     </div>

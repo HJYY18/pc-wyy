@@ -15,8 +15,6 @@
     >
       <div class="item1">
         <span>{{ ("0" + (index + 1)).slice(-2) }}</span>
-        <!-- <img :src="likedsongIds.indexOf(item.id) == -1?imgs[0]:imgs[1]" alt="" @click="test(item.id)" /> -->
-        <!-- <img :src="imgs[0].src" alt="" @click="test(item.id)" /> -->
         <img
           src="@/assets/imgs/like.png"
           alt=""
@@ -69,12 +67,10 @@ export default {
     ...mapState(["likedsongIds"]),
   },
   methods: {
-    // ...mapActions(["setCount"]),
     ...mapActions(["setMusicInfo", "setPlayList"]),
     ...mapActionsUser(['likeMusic']),
     like(id,status){
       this.likeMusic({'id':id,'status':status})
-      // console.log(id,status)
     },
     //处理trackIds
     convertIds(trackIds) {
@@ -110,7 +106,6 @@ export default {
     //播放音乐
     playMusic(id) {
       this.setPlayList(this.songs);
-      // console.log(id)
       this.setMusicInfo(id);
     },
   },
@@ -122,7 +117,6 @@ export default {
     idList: {
       handler() {
         console.log("change");
-        // this.updateQuery(newVal,oldVal)
         this.getData();
       },
       deep: true,

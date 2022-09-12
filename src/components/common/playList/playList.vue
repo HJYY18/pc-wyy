@@ -36,7 +36,7 @@
       <songsList ref="song" :idList="idList"></songsList>
     </div>
     <div class="comment" v-else>
-      <comment :id="this.playListId" :type="3"></comment>
+      <comment :id="this.playListId" :type="2"></comment>
     </div>
   </div>
 </template>
@@ -233,6 +233,7 @@ export default {
 }
 .comment{
   width: 100%;
+  // height: 10%;
   // margin-left: 25%;
 }
 </style>
